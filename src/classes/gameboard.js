@@ -33,7 +33,7 @@ class Gameboard {
 		const pos = obj.position;
 
 		const checkIfEmpty = (position) => {
-			// a function for checking if another ship exists or shis are out of bound
+			// a function for checking if another ship exists or ships are out of bound
 			const getTile = (i) => {
 				return position === "vertical"
 					? this.getTileAt(column, row + i)
