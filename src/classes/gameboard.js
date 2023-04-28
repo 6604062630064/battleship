@@ -76,6 +76,7 @@ class Gameboard {
 	}
 
 	attack(i, j) {
+		// Get the target area and then check whether the property ship is null, if it's not null call a hit() method.
 		const targetTile = this.getTileAt(i, j);
 
 		targetTile.isHit = true;
@@ -84,6 +85,11 @@ class Gameboard {
 		} else {
 			targetTile.ship.hit();
 		}
+	}
+
+	isLost() {
+		// Loop thru the currentShips array and then get call isSunk() inside it, if all return true then make this method return true, otherwise false.
+		return this.currentShip.every((ship) => ship.isSunk());
 	}
 }
 
