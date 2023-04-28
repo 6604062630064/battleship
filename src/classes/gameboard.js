@@ -1,7 +1,8 @@
 class Gameboard {
 	constructor(size) {
-		// Make 10x10 2d array
+		this.currentShip = [];
 		this.size = size;
+		// Make 10x10 2d array
 		this.playingField = (function () {
 			let arr = [];
 			for (let i = 0; i < size; i++) {
@@ -18,6 +19,7 @@ class Gameboard {
 
 	getTileAt(i, j) {
 		if (i < this.size && j < this.size) {
+			// Check whether inputs received are out of bound
 			return this.playingField[i][j];
 		} else {
 			throw new Error("Out of bound!");
@@ -56,6 +58,7 @@ class Gameboard {
 
 				currentPos.ship = ship;
 			}
+			this.currentShip.push(ship);
 			return;
 		}
 
@@ -67,7 +70,19 @@ class Gameboard {
 
 				currentPos.ship = ship;
 			}
+			this.currentShip.push(ship);
 			return;
+		}
+	}
+
+	attack(i, j) {
+		const targetTile = this.getTileAt(i, j);
+
+		targetTile.isHit = true;
+		if (targetTile.ship === null) {
+			return "No ship detected!";
+		} else {
+			targetTile.ship.hit();
 		}
 	}
 }
