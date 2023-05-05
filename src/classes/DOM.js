@@ -8,11 +8,20 @@ const startGame = (player, bot) => {
 
 		if (result === true) {
 			cell.classList.add("sunk");
-			return;
 		}
 
 		if (result === "No ship detected!") {
 			cell.classList.add("missed");
+		}
+
+		if (player.isLost()) {
+			title.textContent = "You lose!";
+			cells.forEach((e) => {
+				e.classList.remove("hoverable");
+			});
+
+			opponent.removeEventListener("click", attackPhase);
+
 			return;
 		}
 	};
@@ -43,13 +52,13 @@ const startGame = (player, bot) => {
 		}
 
 		if (bot.isLost()) {
-			console.log(bot.isLost());
 			title.textContent = "You win!";
 			cells.forEach((e) => {
 				e.classList.remove("hoverable");
 			});
 
 			opponent.removeEventListener("click", attackPhase);
+
 			return;
 		}
 

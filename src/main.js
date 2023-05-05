@@ -23,6 +23,7 @@ DOM.initialize();
 
 const button = document.querySelector("button");
 button.addEventListener("click", (e) => {
+	e.target.disabled = true;
 	DOM.startGame(player, bot);
 });
 
