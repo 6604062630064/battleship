@@ -17,6 +17,8 @@ player.addShip({ length: 1, cord: [4, 5], position: "horizontal" });
 player.addShip({ length: 1, cord: [3, 4], position: "vertical" });
 
 bot.addShip({ length: 1, cord: [0, 0], position: "horizontal" });
+bot.addShip({ length: 4, cord: [0, 9], position: "horizontal" });
+
 DOM.initialize();
 
 const button = document.querySelector("button");

@@ -32,16 +32,17 @@ class Player {
 		const row = Math.floor(Math.random() * 10);
 		const column = Math.floor(Math.random() * 10);
 
-		const currentCell = this.getTileAt(row, column);
+		const response = this.attack(row, column);
 
-		if (currentCell.isHit === false) {
-			currentCell.isHit = true;
-			currentCell.ship.hit();
-
-			console.log("a");
-		} else {
-			this.randomAttack();
+		if (response === "No ship detected!" || response === true) {
+			return { cord: [row, column], result: response };
 		}
+
+		return this.randomAttack();
+	}
+
+	isLost() {
+		return this.board.isLost();
 	}
 }
 
