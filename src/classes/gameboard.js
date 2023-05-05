@@ -40,7 +40,7 @@ class Gameboard {
 					: this.getTileAt(column + i, row);
 			};
 
-			for (let i = 0; i <= ship.length; i++) {
+			for (let i = 0; i < ship.length; i++) {
 				const currentPos = getTile(i);
 
 				if (currentPos.ship !== null) {
@@ -52,7 +52,7 @@ class Gameboard {
 		if (pos === "vertical") {
 			checkIfEmpty("vertical");
 
-			for (let i = 0; i <= ship.length; i++) {
+			for (let i = 0; i < ship.length; i++) {
 				// a fucntion for placing ships
 				const currentPos = this.getTileAt(column, row + i);
 
@@ -65,7 +65,7 @@ class Gameboard {
 		if (pos === "horizontal") {
 			checkIfEmpty("horizontal");
 
-			for (let j = 0; j <= ship.length; j++) {
+			for (let j = 0; j < ship.length; j++) {
 				const currentPos = this.getTileAt(column + j, row);
 
 				currentPos.ship = ship;
@@ -79,16 +79,22 @@ class Gameboard {
 		// Get the target area and then check whether the property ship is null, if it's not null call a hit() method.
 		const targetTile = this.getTileAt(i, j);
 
+		if (targetTile.isHit === true) {
+			return "Already hit!";
+		}
+
 		targetTile.isHit = true;
+
 		if (targetTile.ship === null) {
 			return "No ship detected!";
 		} else {
 			targetTile.ship.hit();
+			return true;
 		}
 	}
 
 	isLost() {
-		// Loop thru the currentShips array and then get call isSunk() inside it, if all return true then make this method return true, otherwise false.
+		// Loop thru the currentShips array and then call isSunk() inside it, if all return true then make this method return true, otherwise false.
 		return this.currentShip.every((ship) => ship.isSunk());
 	}
 }

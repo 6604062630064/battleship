@@ -23,6 +23,26 @@ class Player {
 		const response = this.board.attack(i, j);
 		return response;
 	}
+
+	getBoard() {
+		return this.board.playingField;
+	}
+
+	randomAttack() {
+		const row = Math.floor(Math.random() * 10);
+		const column = Math.floor(Math.random() * 10);
+
+		const currentCell = this.getTileAt(row, column);
+
+		if (currentCell.isHit === false) {
+			currentCell.isHit = true;
+			currentCell.ship.hit();
+
+			console.log("a");
+		} else {
+			this.randomAttack();
+		}
+	}
 }
 
 export default Player;

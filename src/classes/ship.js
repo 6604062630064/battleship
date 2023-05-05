@@ -12,3 +12,5 @@ class Ship {
 		return this.hitTimes >= this.length ? true : false;
 	}
 }
+
+export default Ship;

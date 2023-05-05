@@ -1,5 +1,38 @@
 const tables = document.querySelectorAll(".bigger-table > div > div");
 
+const startGame = (player, bot) => {
+	const attackPhase = (e) => {
+		e.preventDefault();
+		// Check if target is the cell itself
+		if (e.target.classList.contains("opponent")) {
+			return;
+		}
+
+		const targetCell = e.target;
+		const row = parseInt(e.target.getAttribute("row"));
+		const column = parseInt(e.target.getAttribute("column"));
+
+		const response = bot.attack(row, column);
+
+		if (response === "Already hit!") {
+			return;
+		}
+
+		if (response === "No ship detected!") {
+			targetCell.classList.add("missed");
+			return;
+		}
+	};
+
+	const cells = document.querySelectorAll(".opponent .cell");
+	const opponent = document.querySelector(".opponent");
+	cells.forEach((e) => {
+		e.classList.add("hoverable");
+	});
+
+	opponent.addEventListener("click", attackPhase);
+};
+
 const initialize = () => {
 	// Add starting cells in both tables
 	tables.forEach((e) => {
@@ -16,18 +49,9 @@ const initialize = () => {
 	});
 
 	const button = document.querySelector("button");
-
-	// Add an event to start the game
-	button.addEventListener("click", (e) => {
-		e.preventDefault();
-		startGame();
-
-		e.target.disabled = true;
-	});
 };
-
 const prepareShips = (arr) => {
-	// Get info from the array then display it to
+	// Get info from the array then display it to the table
 	arr.forEach((e, i) => {
 		e.forEach((child, j) => {
 			if (child.ship !== null) {
@@ -40,4 +64,4 @@ const prepareShips = (arr) => {
 		});
 	});
 };
-export { initialize, prepareShips };
+export { initialize, prepareShips, startGame };
